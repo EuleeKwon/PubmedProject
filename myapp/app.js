@@ -16,7 +16,7 @@ var app = express();
 
 //db연결
 var connection = mysql.createConnection({
-  host: "arn:aws:rds:ap-northeast-2:027926161829:db:projectdb",
+  host: "projectdb.cjdbbm9zlk2l.ap-northeast-2.rds.amazonaws.com",
   user: "user",
   password: "gachon6543210",
   database: "projectdb"
