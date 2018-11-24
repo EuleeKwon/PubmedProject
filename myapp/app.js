@@ -30,6 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
+//메인화면에서 view에 있는 index.ejs가 나타나게 함
 app.get('/', (request,response)=>{
 	fs.readFile('./views/index.ejs','utf8',(error,data)=>{
 		response.send(ejs.render(data, {}));
