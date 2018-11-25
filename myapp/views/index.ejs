@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +63,7 @@ body {
 }
 @media (min-width: 992px) {
   body {
-    padding-top: 56px;
+    padding-top: 100px;
   }
 }
 .portfolio-item {
@@ -71,7 +72,48 @@ body {
 .pagination {
   margin-bottom: 30px;
 }
-
+          
+.modal {
+   position: absolute;
+   top: 90px;
+   right: 1350px;
+   bottom: 0;
+   left: 0;
+   z-index: 10040;
+   overflow: auto;
+   overflow-y: auto;
+    display: none;
+}
+          
+           /* 논문상세페이지 css */
+          #overlay {
+    position: fixed;
+    display: none;
+    width: 47.7%;
+    height: 87%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: cornsilk;/* 카드 속성에 가려져서 어차피 안 보임 */
+    z-index: 2;
+    cursor: pointer;
+    margin-top: 100px;
+    margin-left: 30px;
+}
+         
+          .scroll{
+              max-height: 8800px;
+              overflow-y: auto;
+          } /* 논문상세페이지 카드 스크롤 css */
+          
+          .card-header {
+              background-color: white;
+          }
+          .card-footer {
+              background-color: white;
+          }
+          
       </style>
 
 
@@ -124,101 +166,191 @@ body {
         </div>
     </nav>
 
-    <!-- Sidebar -->
-    <div>
-    <div class="card text-center card w-50">
-  <div class="card-body">
-      <h5 class="card-title">Mindmap name</h5>
-    This is some text within a card body.
-
-  </div>
-</div>
-        </div>
+    
 
 
-    <!-- Mindmap Btn -->
-    <div class="text-right">
-    <button class="btn btn-info float-xl-right"><i class="fas fa-caret-left"></i></button>
-        </div>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container-fluid">
 
         <!-- Page Heading -->
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col">
 
         <div class="row">
-            <div class="col-lg-4 col-sm-6 portfolio-item">
-                <div class="card h-100">
+            <div class="col-sm-6 portfolio-item">
+                <div href="#" type="button" class="card h-100" onclick="on()">
 
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="#">Project One</a>
                         </h4>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+                        <button class="btn btn-default">저장</button>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 portfolio-item">
-                <div class="card h-100">
+            <div class="col-sm-6 portfolio-item">
+                <div href="#" type="button" class="card h-100" onclick="on()">
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="#">Project Two</a>
                         </h4>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                        <button class="btn btn-default">저장</button>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 portfolio-item">
-                <div class="card h-100">
+            <div class="col-sm-6 portfolio-item">
+                <div href="#" type="button" class="card h-100" onclick="on()">
 
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="#">Project Three</a>
                         </h4>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
+                        <button class="btn btn-default">저장</button>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 portfolio-item">
-                <div class="card h-100">
+            <div class="col-sm-6 portfolio-item">
+                <div href="#" type="button" class="card h-100" onclick="on()">
 
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="#">Project Four</a>
                         </h4>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                        <button class="btn btn-default">저장</button>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 portfolio-item">
-                <div class="card h-100">
+            <div class="col-sm-6 portfolio-item">
+                <div href="#" type="button" class="card h-100" onclick="on()">
 
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="#">Project Five</a>
                         </h4>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                        <button class="btn btn-default">저장</button>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 portfolio-item">
-                <div class="card h-100">
+            <div class="col-sm-6 portfolio-item">
+                <div href="#" type="button" class="card h-100" onclick="on()">
 
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="#">Project Six</a>
                         </h4>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
+                        <button class="btn btn-default">저장</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 portfolio-item">
+                <div  href="#" type="button" class="card h-100" onclick="on()">
+
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">Project Seven</a>
+                        </h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
+                        <button class="btn btn-default">저장</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 portfolio-item">
+                <div href="#" type="button" class="card h-100" onclick="on()">
+
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">Project Eight</a>
+                        </h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.
+                        perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.
+                        </p>
+                        <button class="btn btn-default">저장</button>
                     </div>
                 </div>
             </div>
         </div>
+            </div>
+            
+            <!-- Mindmap -->
+            <div class="col" >
+                <div style="position: fixed">
+
+                
+    <div class="container-fluid">
+    <div class="card text-center">
+  <div class="card-body" style="height: 55rem; width: 56rem;">
+      <h5 class="card-title">Mindmap name</h5>
+    This is some text within a card body.
+
+  </div>
+</div>
+        </div>
+                    </div>
+    </div>
+            </div>
         <!-- /.row -->
 
 
 
     </div>
     <!-- /.container -->
+ 
+    </div>
+    
+    
+    
+    <!-- 논문 상세 페이지 -->
+    <div id="overlay" onclick="off()">
+    <div class="card card-body scroll" style="height: 880px">
+        <div class="card-header">
+        <h5><br>Year. etc</h5>
+        <h2><b>Mindmap name</b></h2>
+        <h5>author</h5>
+            </div>
+        <h3><br>Abstract</h3>
+        <h4><br>Deep endometriosis may simultaneously infiltrate the vagina and the rectosigmoid, which associated resection may increase the risk of postoperative complications. Among these complications, rectovaginal fistula is one of the worst. To reduce the risk of rectovaginal fistula and related complications, surgeons may employ diverting stoma. The literature is rich in data concerning the usefulness of stoma in patients managed for low rectal cancer. However, extrapolation of these data to patients managed for rectal endometriosis is disputable. For this reason, there are no guidelines on the role of stoma in preventing rectovaginal fistula in patients managed for colorectal endometriosis. The objective of our study was to assess the risk of complications related to the use of stoma in patients managed for colorectal endometriosis.
+<br><br>STUDY DESIGN:
+
+A retrospective comparative study has been performed using data prospectively recorded in the CIRENDO database. 163 consecutive women with colorectal endometriosis who had temporary stoma have been enrolled at the University Hospital of Rouen, from June 2009 to December 2016. The main outcome was stoma-related complications rate using Clavien-Dindo classification. No women were lost to follow-up.
+        <br><br>STUDY DESIGN:
+
+A retrospective comparative study has been performed using data prospectively recorded in the CIRENDO database. 163 consecutive women with colorectal endometriosis who had temporary stoma have been enrolled at the University Hospital of Rouen, from June 2009 to December 2016. The main outcome was stoma-related complications rate using Clavien-Dindo classification. No women were lost to follow-up.
+        </h4>
+     <br>
+        <div class="card-footer">
+            <br>
+        <buttton class="btn btn-info">Back</buttton>
+            <buttton class="btn btn-info" style="float: right; margin-left:10px;">Save</buttton>
+            <buttton href="#" class="btn btn-info" style="float: right">Full text links</buttton>
+        </div>
+        </div>
+    </div>
+
+<div style="padding:20px">
+  
+  <a type="button" class="card" onclick="on()">이건 연습이니 무시</a>
+</div>
+
+    
+    <!-- 논문 상세페이지 자바스크립트 -->
+<script>
+function on() {
+    document.getElementById("overlay").style.display = "block";
+}
+
+function off() {
+    document.getElementById("overlay").style.display = "none";
+}
+</script>
+    
 
 
 
@@ -227,13 +359,7 @@ body {
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom javascript-->
-   <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
+  
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
      <!-- jquery -->
