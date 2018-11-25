@@ -118,8 +118,8 @@ body {
                 <form method="post" class="navbar-form">
                     <div class="input-group">
                         <input type="text" class="form-control placeicon" name="searchBar" placeholder="검색" style="width: 690px">
-                        <button name="buttonsearch" value="search" onclick="search()" class="btn btn-info"><i class="fa fa-search"></i></button>
-                        <button name="buttonsave" value="save" onclick="save()" class="btn btn-primary"><i class="fas fa-angle-down"></i></button>
+                        <button name="button" value="search" class="btn btn-info"><i class="fa fa-search"></i></button>
+                        <button name="button" value="save" class="btn btn-primary"><i class="fas fa-angle-down"></i></button>
 
                     </div>
 
@@ -319,11 +319,6 @@ A retrospective comparative study has been performed using data prospectively re
         </div>
     </div>
 
-<div style="padding:20px">
-
-  <a type="button" class="card" onclick="on()">이건 연습이니 무시</a>
-</div>
-
 
     <!-- 논문 상세페이지 자바스크립트 -->
 <script>
@@ -333,6 +328,31 @@ function on() {
 function off() {
     document.getElementById("overlay").style.display = "none";
 }
+
+/*
+//버튼 두개로 나누기
+function search(keyword){
+  $.ajax({
+      url: "http://localhost:3000",
+      type: "POST",
+      data: {'keyword': keyword}, //send this to server
+      success: function(returned) {
+           console.log(returnet); // here can get the return of route
+      }
+  });
+}
+
+function save(keyword){
+  $.ajax({
+        url: "http://localhost:3000",
+        type: "POST",
+        data: {'keyword': keyword}, //send this to server
+        success: function(returned) {
+             console.log(returnet); // here can get the return of route
+        }
+    });
+}
+*/
 </script>
 
 

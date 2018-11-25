@@ -10,8 +10,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var dte = require('date-utils');
-
-var eutils = require('ncbi-eutils');
+var ncbi = require('node-ncbi');
+const pubmed = ncbi.pubmed;
+//var eutils = require('ncbi-eutils');
 
 var app = express();
 
@@ -38,16 +39,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-//버튼 두개로 나누기
-function search(){
-    eutils.esearch({db:'pubmed', term: body})
-    .then(function(d){console.log(d)})
-}
-
-function save(){
-    console.log("save")
-}
-
 //메인화면에서 view에 있는 index.ejs가 나타나게 함
 app.get('/', (request,response)=>{
 	fs.readFile('./views/index.ejs','utf8',(error,data)=>{
@@ -57,11 +48,12 @@ app.get('/', (request,response)=>{
 
 
 app.post('/',(request,response)=>{
-  var body = ""
-  var body = request.body.searchBar
+  var body = "";
+  var body = request.body.searchBar;
+  pubmed.search(body, 0, 20).then((results) => {
+    console.log(results);
   });
-
-
+});
 
 
 
