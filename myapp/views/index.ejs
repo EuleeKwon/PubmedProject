@@ -90,7 +90,7 @@ body {
 
                 <form class="navbar-form">
                     <div class="input-group">
-                        <input type="text" class="form-control placeicon" placeholder="검색" style="width: 690px">
+                        <input type="text" name="key" class="form-control placeicon" placeholder="검색" style="width: 690px">
                         <button class="btn btn-info" type="search"><i class="fa fa-search"></i></button>
                         <button class="btn btn-primary"><i class="fas fa-angle-down"></i></button>
 
@@ -147,9 +147,23 @@ body {
         <!-- Page Heading -->
 
         <div class="row">
+		<% Object.keys(paper.papers).forEach(function(key) {%>
             <div class="col-lg-4 col-sm-6 portfolio-item">
                 <div class="card h-100">
-
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#"><%-paper.papers[key].title%></a>
+                        </h4>
+						<%pubmed.abstract(paper.papers[key].pmid).then((abstract)=>{
+						console.log(abstract, "\n\n");%>
+                        <p class="card-text">hihi</p>
+						<p class="card-text"><%-abstract%></p>
+						<%});%>
+                    </div>
+                </div>
+            </div>
+		<% }); %>
+<!--
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="#">Project One</a>
@@ -212,6 +226,7 @@ body {
                     </div>
                 </div>
             </div>
+			-->
         </div>
         <!-- /.row -->
 
