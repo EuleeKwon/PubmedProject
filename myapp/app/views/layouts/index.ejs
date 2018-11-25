@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+      <title>CDSS SearchPage</title>
+
+      <!-- font Awesome 5 CSS -->
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+      <style>
+          .navbar{
+  background-color: #fcfcfc !important;/* 내비게이션 배경 색상 */
+}
+.navbar .navbar-brand{/* 내비게이션 제목 'CDSS' 글자 및 하이라이트 색상 */
+  color: #fff;
+  background-color: #4374D9;
+  border-bottom-left-radius: 15px 15px;
+  border-top-right-radius: 15px 15px;
+}
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus
+{
+    color: #fff;
+    background-color: #4374D9;
+}
+/* navbar의 버튼들의 css */
+.btn-round{
+    border-radius: 24px;
+    background-color: #fcfcfc;
+}
+.btn-round:hover,
+.btn-round:focus
+{
+    background-color:#eaeaea;
+    color: black;
+}
+.right-header-btn{
+    margin-right:8px;
+}
+.btn-circle{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+/* side bar */
+/* Basic css */
+body {
+  padding-top: 54px;
+}
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+.portfolio-item {
+  margin-bottom: 30px;
+}
+.pagination {
+  margin-bottom: 30px;
+}
+
+      </style>
+
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><b>&nbsp;&nbsp;CDSS&nbsp;&nbsp;</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+
+                <form class="navbar-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control placeicon" placeholder="검색" style="width: 690px">
+                        <button class="btn btn-info" type="search"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-primary"><i class="fas fa-angle-down"></i></button>
+
+                    </div>
+
+                </form>
+
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <button class="btn btn-round right-header-btn" href="#"><b>홈</b>
+                            <span class="sr-only">(current)</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-round right-header-btn" href="#"><b>마이페이지</b></button>
+                    </li>
+                    <div class="btn-group">
+                        <button class="btn btn-round right-header-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">menu1</a></li>
+                            <li><a class="dropdown-item" href="#">menu2</a></li>
+                            <li><a class="dropdown-item" href="#">menu3</a></li>
+                        </div>
+                    </div>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div>
+    <div class="card text-center card w-50">
+  <div class="card-body">
+      <h5 class="card-title">Mindmap name</h5>
+    This is some text within a card body.
+
+  </div>
+</div>
+        </div>
+
+
+    <!-- Mindmap Btn -->
+    <div class="text-right">
+    <button class="btn btn-info float-xl-right"><i class="fas fa-caret-left"></i></button>
+        </div>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading -->
+
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">Project One</a>
+                        </h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">Project Two</a>
+                        </h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">Project Three</a>
+                        </h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">Project Four</a>
+                        </h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">Project Five</a>
+                        </h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">Project Six</a>
+                        </h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+
+    </div>
+    <!-- /.container -->
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom javascript-->
+   <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+     <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

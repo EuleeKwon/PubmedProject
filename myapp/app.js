@@ -11,9 +11,17 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var dte = require('date-utils');
 
+var eutils = require('ncbi-eutils');
+
 var app = express();
 
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+
+/*
 //db연결
 var connection = mysql.createConnection({
   host: "projectdb.cjdbbm9zlk2l.ap-northeast-2.rds.amazonaws.com",
@@ -23,12 +31,22 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
-
+*/
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
+//버튼 두개로 나누기
+function search(){
+    eutils.esearch({db:'pubmed', term: body})
+    .then(function(d){console.log(d)})
+}
+
+function save(){
+    console.log("save")
+}
 
 //메인화면에서 view에 있는 index.ejs가 나타나게 함
 app.get('/', (request,response)=>{
@@ -36,6 +54,15 @@ app.get('/', (request,response)=>{
 		response.send(ejs.render(data, {}));
 	});
 });
+
+
+app.post('/',(request,response)=>{
+  var body = ""
+  var body = request.body.searchBar
+  });
+
+
+
 
 
 app.listen(3000,function(){
