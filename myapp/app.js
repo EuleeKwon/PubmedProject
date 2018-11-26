@@ -50,8 +50,10 @@ app.get('/', (request,response)=>{
 app.post('/',(request,response)=>{
   var body = "";
   var body = request.body.searchBar;
-  pubmed.search(body, 0, 20).then((results) => {
-    console.log(results);
+  pubmed.search(body, 0, 8).then((results) => {
+    response.render(index.ejs,results)
+		console.log(typeof(results))
+		console.log(results.papers[0].title)
   });
 });
 
