@@ -114,12 +114,12 @@ body {
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <sear class="collapse navbar-collapse" id="navbarResponsive">
 
-                <form class="navbar-form">
+                <form class="navbar-form" method="post">
                     <div class="input-group">
-                        <input type="text" class="form-control placeicon" placeholder="검색" style="width: 690px">
-                        <button class="btn btn-info" type="search"><i class="fa fa-search"></i></button>
+                        <input type="text" class="form-control placeicon" name="searchBar" placeholder="검색" style="width: 690px">
+                        <button class="input" type="submit"><i class="fa fa-search"></i></button>
                         <button class="btn btn-primary"><i class="fas fa-angle-down"></i></button>
 
                     </div>
@@ -165,103 +165,21 @@ body {
             <div class="col">
 
         <div class="row">
+			<% Object.keys(paper.papers).forEach(function(key){ %>
             <div class="col-sm-6 portfolio-item">
                 <div type="button" class="card h-100" onclick="on()">
-
-                    <div class="card-body">
+					<div class="card-body">
                         <h5 class="card-title">
-                            <b>Title One</b>
+                            <b><%-paper.papers[key].title%></b>
                         </h5>
-                        <p class="card-text">여기엔 저자를 쓰시오..Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+						<%pubmed.abstract(paper.papers[key].pmid).then((abstract)=>{%>
+                        <p class="card-text"><%-abstract%></p>
+						<%});%>
                         <button class="btn btn-default">저장</button>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 portfolio-item">
-                <div type="button" class="card h-100" onclick="on()">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <b>Title Two</b>
-                        </h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-                        <button class="btn btn-default">저장</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 portfolio-item">
-                <div type="button" class="card h-100" onclick="on()">
-
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <b>Title Three</b>
-                        </h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-                        <button class="btn btn-default">저장</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 portfolio-item">
-                <div type="button" class="card h-100" onclick="on()">
-
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <b>Title Four</b>
-                        </h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-                        <button class="btn btn-default">저장</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 portfolio-item">
-                <div type="button" class="card h-100" onclick="on()">
-
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <b>Title Five</b>
-                        </h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-                        <button class="btn btn-default">저장</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 portfolio-item">
-                <div type="button" class="card h-100" onclick="on()">
-
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <b>Title Six</b>
-                        </h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
-                        <button class="btn btn-default">저장</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 portfolio-item">
-                <div type="button" class="card h-100" onclick="on()">
-
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <b>Title Seven</b>
-                        </h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
-                        <button class="btn btn-default">저장</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 portfolio-item">
-                <div type="button" class="card h-100" onclick="on()">
-
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <b>Title eight</b>
-                        </h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.
-                        perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.
-                        </p>
-                        <button class="btn btn-default">저장</button>
-                    </div>
-                </div>
-            </div>
+			<%});%>
         </div>
             </div>
             
