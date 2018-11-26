@@ -169,12 +169,10 @@ body {
             <div class="col-sm-6 portfolio-item">
                 <div type="button" class="card h-100" onclick="on()">
 					<div class="card-body">
-                        <h5 class="card-title">
+                        <h6 class="card-title">
                             <b><%-paper.papers[key].title%></b>
-                        </h5>
-						<%pubmed.abstract(paper.papers[key].pmid).then((abstract)=>{%>
-                        <p class="card-text"><%-abstract%></p>
-						<%});%>
+                        </h6>
+                        <p class="card-text"><%-paper.papers[key].authors%></p>
                         <button class="btn btn-default">저장</button>
                     </div>
                 </div>
