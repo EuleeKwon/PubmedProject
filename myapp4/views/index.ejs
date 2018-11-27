@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+      <title>CDSS SearchPage</title>
+
+      <!-- font Awesome 5 CSS -->
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+      <style>
+          .navbar{
+  background-color: #fcfcfc !important;/* 내비게이션 배경 색상 */
+}
+.navbar .navbar-brand{/* 내비게이션 제목 'CDSS' 글자 및 하이라이트 색상 */
+  color: #fff;
+  background-color: #4374D9;
+  border-bottom-left-radius: 15px 15px;
+  border-top-right-radius: 15px 15px;
+}
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus
+{
+    color: #fff;
+    background-color: #4374D9;
+}
+/* navbar의 버튼들의 css */
+.btn-round{
+    border-radius: 24px;
+    background-color: #fcfcfc;
+}
+.btn-round:hover,
+.btn-round:focus
+{
+    background-color:#eaeaea;
+    color: black;
+}
+.right-header-btn{
+    margin-right:8px;
+}
+.btn-circle{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+/* side bar */
+/* Basic css */
+body {
+  padding-top: 54px;
+}
+@media (min-width: 992px) {
+  body {
+    padding-top: 100px;
+  }
+}
+.portfolio-item {
+  margin-bottom: 30px;
+}
+
+           /* 논문상세페이지 css */
+          #overlay {
+    position: fixed;
+    display: none;
+    width: 47.7%;
+    height: 87%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: cornsilk;/* 카드 속성에 가려져서 어차피 안 보임 */
+    z-index: 2;
+    cursor: pointer;
+    margin-top: 100px;
+    margin-left: 30px;
+}
+
+          .scroll{
+              max-height: 8800px;
+              overflow-y: auto;
+          } /* 논문상세페이지 카드 스크롤 css */
+
+          .card-header {
+              background-color: white;
+          }
+          .card-footer {
+              background-color: white;
+          }
+
+
+      </style>
+
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><b>&nbsp;&nbsp;CDSS&nbsp;&nbsp;</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <sear class="collapse navbar-collapse" id="navbarResponsive">
+
+                <form class="navbar-form" method="post">
+                    <div class="input-group">
+                        <input type="text" id="searchtext" class="form-control placeicon" name="searchBar" placeholder="검색" style="width: 690px">
+                        <input type="submit" name="button" value="search" class="btn btn-primary" ><i class="fa fa-search"></i></button>
+                        <input type="submit" name="button" value="save" class="btn btn-primary" ><i class="fas fa-angle-down"></i></button>
+
+                    </div>
+
+                </form>
+
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <button class="btn btn-round right-header-btn" href="#"><b>홈</b>
+                            <span class="sr-only">(current)</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-round right-header-btn" href="#"><b>마이페이지</b></button>
+                    </li>
+                    <div class="btn-group">
+                        <button class="btn btn-round right-header-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">menu1</a></li>
+                            <li><a class="dropdown-item" href="#">menu2</a></li>
+                            <li><a class="dropdown-item" href="#">menu3</a></li>
+                        </div>
+                    </div>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+    <!-- Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+
+        <div class="row">
+			<% Object.keys(paper.papers).forEach(function(key){ %>
+            <div class="col-sm-6 portfolio-item">
+                <div type="button" class="card h-100" onclick="on()">
+					<div class="card-body">
+                        <h6 class="card-title">
+                            <b><%-paper.papers[key].title%></b>
+                        </h6>
+                        <p class="card-text"><%-paper.papers[key].authors%></p>
+                        <button class="btn btn-default">저장</button>
+                    </div>
+                </div>
+            </div>
+			<%});%>
+        </div>
+            </div>
+
+            <!-- Mindmap -->
+            <div class="col" >
+                <div style="position: fixed">
+
+
+    <div class="container-fluid">
+    <div class="card text-center">
+  <div class="card-body" style="height: 55rem; width: 56rem;">
+      <h5 class="card-title">Mindmap name</h5>
+    This is some text within a card body.
+
+  </div>
+</div>
+        </div>
+                    </div>
+    </div>
+            </div>
+        <!-- /.row -->
+
+
+
+    </div>
+    <!-- /.container -->
+
+    </div>
+
+
+
+    <!-- 논문 상세 페이지 -->
+    <div id="overlay">
+    <div class="card card-body scroll" style="height: 880px">
+        <div class="card-header">
+        <h6><br>Year. etc</h6>
+        <h3><b>Mindmap name</b></h3>
+        <h6>author</h6>
+            </div>
+        <h4><br>Abstract</h4>
+        <h5><br>Deep endometriosis may simultaneously infiltrate the vagina and the rectosigmoid, which associated resection may increase the risk of postoperative complications. Among these complications, rectovaginal fistula is one of the worst. To reduce the risk of rectovaginal fistula and related complications, surgeons may employ diverting stoma. The literature is rich in data concerning the usefulness of stoma in patients managed for low rectal cancer. However, extrapolation of these data to patients managed for rectal endometriosis is disputable. For this reason, there are no guidelines on the role of stoma in preventing rectovaginal fistula in patients managed for colorectal endometriosis. The objective of our study was to assess the risk of complications related to the use of stoma in patients managed for colorectal endometriosis.
+<br><br>STUDY DESIGN:
+
+A retrospective comparative study has been performed using data prospectively recorded in the CIRENDO database. 163 consecutive women with colorectal endometriosis who had temporary stoma have been enrolled at the University Hospital of Rouen, from June 2009 to December 2016. The main outcome was stoma-related complications rate using Clavien-Dindo classification. No women were lost to follow-up.
+        <br><br>STUDY DESIGN:
+
+A retrospective comparative study has been performed using data prospectively recorded in the CIRENDO database. 163 consecutive women with colorectal endometriosis who had temporary stoma have been enrolled at the University Hospital of Rouen, from June 2009 to December 2016. The main outcome was stoma-related complications rate using Clavien-Dindo classification. No women were lost to follow-up.
+        </h5>
+     <br>
+        <div class="card-footer">
+            <br>
+        <buttton class="btn btn-info" onclick="off()">Back</buttton>
+            <buttton class="btn btn-info" style="float: right; margin-left:10px;">Save</buttton>
+            <buttton href="#" class="btn btn-info" style="float: right">Full text links</buttton>
+        </div>
+        </div>
+    </div>
+
+<div style="padding:20px">
+
+  <a type="button" class="card" onclick="on()">이건 연습이니 무시</a>
+</div>
+
+
+    <!-- 논문 상세페이지 자바스크립트 -->
+<script>
+function on() {
+    document.getElementById("overlay").style.display = "block";
+}
+
+function off() {
+    document.getElementById("overlay").style.display = "none";
+}
+
+/*
+$(document).ready(function(){
+  $("#searchbtn").click(function(){
+    var data = $("#searchtext").val();
+    $.ajax({
+      type:"POST",
+      url: '/search',
+      data : {data: data},
+      success: function(){
+      },
+      error: function(){
+        console.log("error");
+      }
+    });
+  });
+
+  $("#savebtn").click(function(){
+    $.ajax({
+      type:"POST",
+      url: '/',
+    });
+  });
+});
+*/
+
+
+</script>
+
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom javascript-->
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+     <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
