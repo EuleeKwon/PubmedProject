@@ -97,6 +97,127 @@ body {
           .card-footer {
               background-color: white;
           }
+          
+          /* 마인드맵 css */
+        .scroll2{
+              max-height: 8800px;
+              overflow-x: auto;
+            overflow-y: auto;
+          } /* 마인드맵 카드 스크롤 css */
+          .mindmap {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	white-space: nowrap;
+	}
+.mindmap:before {
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	height: 100%;
+	width: 0;
+	}
+
+.node {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	height: 42px;
+	border: 1px solid #ccc;
+	padding: 0 4px;
+	margin: 4px 0;
+	background: #fff;
+	border-radius: 5px;
+	text-align: left;
+	cursor: pointer;
+	transition: all .2s;
+	direction: ltr;
+	}
+.node:hover {
+	box-shadow: 0 0 3px 0 #3498DB;
+	}
+.node:active {
+	box-shadow: 0 0 1px 0 #3498DB;
+	}
+
+.node_active,
+.node_active:hover {
+	box-shadow: 0 0 2px 1px #3498DB;
+	}
+
+.node_root {
+	border: 0;
+	background: #3498DB;
+	color: #fff;
+	font: 30px/40px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	padding: 0 10px;
+	height: 40px;
+	}
+
+
+.children {
+	position: relative;
+	list-style: none;
+	margin: 0;
+	text-align: left;
+	padding: 0 0 0 6px;
+	display: inline-block;
+	vertical-align: middle;
+	}
+.children:before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: -4px;
+	width: 10px;
+	border-top: 1px solid #ccc;
+	}
+	.children__item {
+		position: relative;
+		padding: 0 0 0 10px;
+		border-left: 1px solid #ccc;
+		}
+	.children__item:first-child,
+	.children__item:last-child {
+		border-left: 1px solid transparent;
+		}
+	.children__item:before {
+		content: '';
+		width: 10px;
+		border-top: 1px solid #ccc;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		}
+	.children__item:first-child:before {
+		left: -1px;
+		bottom: 0;
+		border-radius: 4px 0 0 0;
+		border-left: 1px solid #ccc;
+		}
+	.children__item:last-child:before {
+		left: -1px;
+		top: 0;
+		bottom: 50%;
+		border-radius: 0 0 0 4px;
+		border: 0;
+		border-left: 1px solid #ccc;
+		border-bottom: 1px solid #ccc;
+		}
+	.children__item:first-child:last-child:before {
+		top: 50%;
+		bottom: auto;
+		border: 0;
+		border-radius: 0;
+		border-top: 1px solid #ccc;
+		}
+        
+        .node__text{
+            font: 20px/40px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
 
 
       </style>
@@ -191,9 +312,104 @@ body {
 
      <div class="container-fluid">
      <div class="card text-center">
-   <div class="card-body" style="height: 55rem; width: 56rem;">
+   <div class="card-body scroll2" style="height: 55rem; width: 56rem;">
        <h5 class="card-title">Mindmap name</h5>
-     This is some text within a card body.
+      <div class="mindmap">
+
+                                        <div class="node node_root">
+                                            <div class="root__node__text">node</div>
+                                            
+                                        </div>
+                                        <ol class="children children_rightbranch">
+                                            <li class="children__item">
+                                                <div class="node">
+                                                    <div class="node__text">node</div>
+                                                </div>
+                                                <ol class="children">
+                                                    <li class="children__item">
+                                                        <div class="node">
+                                                            <div class="node__text">node</div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </li>
+                                                    <li class="children__item">
+                                                        <div class="node">
+                                                            <div class="node__text">node</div>
+                                                            
+                                                        </div>
+                                                    </li>
+                                                    <li class="children__item">
+                                                        <div class="node">
+                                                            <div class="node__text">node</div>
+                                                           
+                                                        </div>
+                                                    </li>
+                                                    
+                                                </ol>
+                                            </li>
+                                            <li class="children__item">
+                                                <div class="node">
+                                                    <div class="node__text">node</div>
+                                                    
+                                                </div>
+                                                <ol class="children">
+                                                    <li class="children__item">
+                                                        <div class="node">
+                                                            <div class="node__text">node</div>
+                                                           
+                                                        </div>
+                                                    </li>
+                                                    <li class="children__item">
+                                                        <div class="node">
+                                                            <div class="node__text">node</div>
+                                                            
+                                                        </div>
+                                                    </li>
+                                                    <li class="children__item">
+                                                        <div class="node">
+                                                            <div class="node__text">node</div>
+                                                            
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                            <li class="children__item">
+                                                <div class="node">
+                                                    <div class="node__text">node</div>
+                                                    
+                                                </div>
+                                                <ol class="children">
+                                                    <li class="children__item">
+                                                        <div class="node">
+                                                            <div class="node__text">node</div>
+                                                           
+                                                        </div>
+                                                    </li>
+                                                    <li class="children__item">
+                                                        <div class="node">
+                                                            <div class="node__text">node</div>
+                                                           
+                                                        </div>
+                                                    </li>
+                                                    <li class="children__item">
+                                                        <div class="node">
+                                                            <div class="node__text">node</div>
+                                                            
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                        </ol>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
    </div>
  </div>
@@ -238,6 +454,16 @@ A retrospective comparative study has been performed using data prospectively re
         </div>
     </div>
 
+
+ <!-- 마인드맵 관련 자바스크립트 -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <script>
+        $(function() {
+            $('.mindmap').mindmap();
+        });
+    </script>
+    
 
     <!-- 논문 상세페이지 자바스크립트 -->
 <script>
