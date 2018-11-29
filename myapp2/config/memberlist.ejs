@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>List Page</title>
+</head>
+<body>
+	<h1>회원 관리</h1>
+	<hr>
+		<form method = "post">
+		 <input type="text" name="searchBar">
+        <input type="submit" name="search-member" value="회원삭제">
+		</form>
+
+	<table width="100%" border="1">
+	 <tr>
+		<th>ID</th>
+		<th>PWD</th>
+		<th>name</th>
+		<th>sex</th>
+		<th>birth</th>
+		<th>ph</th>
+		<th>email</th>
+	 </tr>
+	 <% data.forEach(function(item,index){%>
+	 <tr>
+		<td><%=item.member_id%></td>
+		<td><%=item.member_pwd%></td>
+		<td><%=item.member_name%></td>
+		<td><%=item.member_sex%></td>
+		<td><%=item.member_birth%></td>
+		<td><%=item.member_ph%></td>
+		<td><%=item.member_email%></td>
+		<td><a href="./edit/<%=item.member_id%>">수정</a></td>
+	 </tr>
+	 <%});%>
+	</table>
+</body>
+</html>

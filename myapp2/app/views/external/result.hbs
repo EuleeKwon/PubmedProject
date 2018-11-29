@@ -1,0 +1,33 @@
+<!--들어갈 컨텐츠 내용입니다-->
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="mt-4 mb-4">{{query.date}}일 /  {{fruit}} 도매경매 현황</h4>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>장소</th>
+                <th>업체명</th>
+                <th>평균가</th>
+                <th>수량</th>
+                <th>기준</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each marketResult.items.item}}
+                <tr>
+                    <td>{{this.marketname}}</td>
+                    <td>{{this.coname}}</td>
+                    <td>{{this.avgprice}}</td>
+                    <td>{{this.rnum}}</td>
+                    <td>{{this.unitname}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+<a href="/" class="btn btn-primary btn-lg btn-block">목록으로</a>
