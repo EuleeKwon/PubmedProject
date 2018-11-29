@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,7 +120,6 @@ body {
                         <input type="text" id="searchtext" class="form-control placeicon" name="searchBar" placeholder="검색" style="width: 690px">
                         <input type="submit" name="button" value="search" class="btn btn-primary" ><i class="fa fa-search"></i></button>
                         <input type="submit" name="button" value="save" class="btn btn-primary" ><i class="fas fa-angle-down"></i></button>
-
                     </div>
 
                 </form>
@@ -152,32 +150,35 @@ body {
         </div>
     </nav>
 
-
-
-
-
     <!-- Page Content -->
     <div class="container-fluid">
 
         <!-- Page Heading -->
         <div class="container-fluid">
         <div class="row">
-            <div class="col">
-
+        <div class="col">
         <div class="row">
+			<% var pid = ""; var pid_list = []; var selected_key;%>
 			<% Object.keys(paper.papers).forEach(function(key){ %>
             <div class="col-sm-6 portfolio-item">
+			<%pid = paper.papers[key].pmid%>
+			<%pid_list.push(pid);
+			console.log(pid);%>
                 <div type="button" class="card h-100" onclick="on()">
 					<div class="card-body">
                         <h6 class="card-title">
                             <b><%-paper.papers[key].title%></b>
                         </h6>
                         <p class="card-text"><%-paper.papers[key].authors%></p>
-                        <button class="btn btn-default">저장</button>
+						<form method="post">
+						<input type="hidden" name="selected_pid_<%-key%>" value="<%=pid_list[key]%>"/>
+						<input type="submit" class="btn btn-default" value="입력"/>
+                        <input type="submit" class="btn btn-default" value="저장"/>
+						</form>
                     </div>
                 </div>
             </div>
-			<%});%>
+		<%});%>
         </div>
             </div>
 
@@ -213,17 +214,13 @@ body {
     <div id="overlay">
     <div class="card card-body scroll" style="height: 880px">
         <div class="card-header">
-        <h6><br>Year. etc</h6>
-        <h3><b>Mindmap name</b></h3>
-        <h6>author</h6>
+        <h6 id="paper_date"><br></h6>
+        <h3 id="paper_title"><b>Mindmap name</b></h3>
+        <h6 id="paper_authors">author</h6>
             </div>
         <h4><br>Abstract</h4>
-        <h5><br>Deep endometriosis may simultaneously infiltrate the vagina and the rectosigmoid, which associated resection may increase the risk of postoperative complications. Among these complications, rectovaginal fistula is one of the worst. To reduce the risk of rectovaginal fistula and related complications, surgeons may employ diverting stoma. The literature is rich in data concerning the usefulness of stoma in patients managed for low rectal cancer. However, extrapolation of these data to patients managed for rectal endometriosis is disputable. For this reason, there are no guidelines on the role of stoma in preventing rectovaginal fistula in patients managed for colorectal endometriosis. The objective of our study was to assess the risk of complications related to the use of stoma in patients managed for colorectal endometriosis.
+        <h5 id="paper_abstract"><br>
 <br><br>STUDY DESIGN:
-
-A retrospective comparative study has been performed using data prospectively recorded in the CIRENDO database. 163 consecutive women with colorectal endometriosis who had temporary stoma have been enrolled at the University Hospital of Rouen, from June 2009 to December 2016. The main outcome was stoma-related complications rate using Clavien-Dindo classification. No women were lost to follow-up.
-        <br><br>STUDY DESIGN:
-
 A retrospective comparative study has been performed using data prospectively recorded in the CIRENDO database. 163 consecutive women with colorectal endometriosis who had temporary stoma have been enrolled at the University Hospital of Rouen, from June 2009 to December 2016. The main outcome was stoma-related complications rate using Clavien-Dindo classification. No women were lost to follow-up.
         </h5>
      <br>
@@ -241,47 +238,20 @@ A retrospective comparative study has been performed using data prospectively re
   <a type="button" class="card" onclick="on()">이건 연습이니 무시</a>
 </div>
 
-
     <!-- 논문 상세페이지 자바스크립트 -->
 <script>
-function on() {
-    document.getElementById("overlay").style.display = "block";
+function on(number) {
+	document.getElementById("overlay").style.display = "block";
+}
+
+function getNumber(num){
+	return num;
 }
 
 function off() {
     document.getElementById("overlay").style.display = "none";
 }
-
-/*
-$(document).ready(function(){
-  $("#searchbtn").click(function(){
-    var data = $("#searchtext").val();
-    $.ajax({
-      type:"POST",
-      url: '/search',
-      data : {data: data},
-      success: function(){
-      },
-      error: function(){
-        console.log("error");
-      }
-    });
-  });
-
-  $("#savebtn").click(function(){
-    $.ajax({
-      type:"POST",
-      url: '/',
-    });
-  });
-});
-*/
-
-
 </script>
-
-
-
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>

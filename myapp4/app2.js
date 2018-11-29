@@ -16,6 +16,7 @@ const app = express();
 const pubmed = ncbi.pubmed;
 
 var keyword;
+var pid;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
@@ -30,9 +31,8 @@ var client = mysql.createConnection({
   password: "gachon6543210",
   database: "projectdb"
 });
+*/
 
-
-/*
 // local database
 var connection = mysql.createConnection({
   host: "localhost",
@@ -41,9 +41,8 @@ var connection = mysql.createConnection({
   database: "final_project"
 });
 
-
-client.connect();
-*/
+//client.connect();
+connection.connect();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -78,7 +77,8 @@ app.get('/search', function(request, response){
 			pubmed.search(keyword, 0, 8).then((results)=>{
 				response.send(ejs.render(data, {
 					paper:results,
-					pubmed:pubmed
+					pubmed:pubmed,
+					paper_id:pid
 				}));
 			});
 		}
@@ -86,24 +86,43 @@ app.get('/search', function(request, response){
 	});
 });
 
+
 //버튼에 따라서 save와 research 를 분리
 // search 부분에서도 post로 값 받아오는 부분이 필요하다.
-app.post('/search', (request, response)=>{
+app.post('/search',(request, response)=>{
 	let body = request.body;
 	keyword = body.searchBar;
 	var example = example;
 	var inputValue = request.body.button;
+	
 	if(inputValue == "search") {
 		console.log("search keyword is ", keyword);
 		response.redirect('/search');
-	}else{
+	}
+	if(inputValue == "save") {
 		client.query('INSERT INTO hisDB (keyword,title,count)VALUES(?,?,?)',[keyword,example,1])
 		console.log("Insertion into DB was completed !");
 		res.redirect('/search');
 		}
-	});
-
-
+		
+	if(body.selected_pid_0){
+		pid = body.selected_pid_0;
+	} if(body.selected_pid_1){
+		pid = body.selected_pid_1;
+	} if(body.selected_pid_2){
+		pid = body.selected_pid_2;
+	} if(body.selected_pid_3){
+		pid = body.selected_pid_3;
+	} if(body.selected_pid_4){
+		pid = body.selected_pid_4;
+	} if(body.selected_pid_5){
+		pid = body.selected_pid_5;
+	} if(body.selected_pid_6){
+		pid = body.selected_pid_6;
+	} if(body.selected_pid_7){
+		pid = body.selected_pid_7;
+	}
+});
 
 app.listen(app.get('port'),function(){
 	console.log('server running at ' + app.get('port'));
