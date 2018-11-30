@@ -17,16 +17,16 @@ const app = express();
 const pubmed = ncbi.pubmed;
 
 var keyword;
-var pid;
+var pid = 0;
 var orders = 0;
 var parents = 0;
+var view_mode="none";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(cookieParser());
 
 //DB아이디 비번 임의로 작성
-
 /*
 //db연결
 var client = mysql.createConnection({
@@ -40,7 +40,7 @@ var client = mysql.createConnection({
 client.connect();
 */
 
-/*
+
 // local database
 var connection = mysql.createConnection({
   host: "localhost",
@@ -48,7 +48,8 @@ var connection = mysql.createConnection({
   password: "1234",
   database: "final_project"
 });
-*/
+
+connection.connect();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -85,7 +86,7 @@ app.get('/search', function(request, response){
 				response.send(ejs.render(data, {
 					paper:results,
 					pubmed:pubmed,
-					paper_id:pid
+					view_mode:view_mode
 				}));
 			});
 		}
@@ -101,30 +102,6 @@ app.post('/search', (request, response)=>{
 	let body = request.body;
 	keyword = body.searchBar;
 //	var example = example;
-
-//pid 받아오기
-		if(body.selected_pid_0){
-		pid = body.selected_pid_0;
-	} if(body.selected_pid_1){
-		pid = body.selected_pid_1;
-	} if(body.selected_pid_2){
-		pid = body.selected_pid_2;
-	} if(body.selected_pid_3){
-		pid = body.selected_pid_3;
-	} if(body.selected_pid_4){
-		pid = body.selected_pid_4;
-	} if(body.selected_pid_5){
-		pid = body.selected_pid_5;
-	} if(body.selected_pid_6){
-		pid = body.selected_pid_6;
-	} if(body.selected_pid_7){
-		pid = body.selected_pid_7;
-	}
-
-//논문 정보 전체 보기
-if(body.view){
-	console.log("button view clicked");
-}
 
 //키워드 검색
 if(body.search){
@@ -144,6 +121,62 @@ if(body.save){
 			console.log("save keyword button clicked");
 	}
 
+});
+
+app.get('/view', (request, response)=>{
+	console.log("bark!\n");
+	fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
+		if(!error){
+			console.log("bark, bark!\n");
+			
+			var abstr;
+			pubmed.abstract(pid).then((results)=>{
+				abstr = results;
+			});
+			
+			view_mode="block";
+			pubmed.summary(pid).then((results)=>{
+				response.send(ejs.render(data, {
+					pubDate: results.pubDate,
+					title: results.title,
+					authors: results.authors,
+					pubmed:pubmed,
+					abstr:abstr
+				}));
+			});
+		}
+		else console.log(error);
+	});
+});
+
+app.post('/view', (request, response)=>{
+	let body = request.body;
+	
+	//pid 받아오기
+	if(body.selected_pid_0){
+		pid = body.selected_pid_0;
+	} if(body.selected_pid_1){
+		pid = body.selected_pid_1;
+	} if(body.selected_pid_2){
+		pid = body.selected_pid_2;
+	} if(body.selected_pid_3){
+		pid = body.selected_pid_3;
+	} if(body.selected_pid_4){
+		pid = body.selected_pid_4;
+	} if(body.selected_pid_5){
+		pid = body.selected_pid_5;
+	} if(body.selected_pid_6){
+		pid = body.selected_pid_6;
+	} if(body.selected_pid_7){
+		pid = body.selected_pid_7;
+	}
+	console.log("\n\npid is " + pid);
+
+	//논문 정보 전체 보기
+	if(body.view){
+		console.log("button view clicked");
+	}
+/*
 //논문 pid 저장
 	if(body.title_save){
 		console.log("just before query" + keyword, pid, orders, parents)
@@ -152,8 +185,9 @@ if(body.save){
 	});
 		console.log("title save button clicked");
 	}
+*/
+response.redirect('/view');
 });
-
 
 
 app.listen(app.get('port'),function(){
