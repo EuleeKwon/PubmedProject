@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var dte = require('date-utils');
 var ncbi = require('node-ncbi');
+var async = require('async');
 
 const app = express();
 //app.use(cookieParser)
@@ -125,28 +126,37 @@ if(body.save){
 
 app.get('/view', (request, response)=>{
 	console.log("bark!\n");
-	fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
-		if(!error){
-			console.log("bark, bark!\n");
+	var abstr;
+	async.waterfall([
+	function(callback){
+		pubmed.abstract(pid).then((results)=>{
+			abstr = results;
+			console.log("\n\nresults :" + results);
+			console.log("\n\nabstr : " + abstr);
+		});
+		callback(null)
+	},
+	function(callback){
+		fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
+			if(!error){
+				console.log("bark, bark!\n");
 			
-			var abstr;
-			pubmed.abstract(pid).then((results)=>{
-				abstr = results;
-			});
-			
-			view_mode="block";
-			pubmed.summary(pid).then((results)=>{
-				response.send(ejs.render(data, {
-					pubDate: results.pubDate,
-					title: results.title,
-					authors: results.authors,
-					pubmed:pubmed,
-					abstr:abstr
-				}));
-			});
-		}
-		else console.log(error);
-	});
+				view_mode="block";
+				pubmed.summary(pid).then((results)=>{
+					console.log(results);
+					response.send(ejs.render(data, {
+						abstr:abstr,
+						pubDate: results.pubDate,
+						title: results.title,
+						authors: results.authors,
+						pubmed:pubmed
+					}));
+				});
+			}
+			else console.log(error);
+		});
+		callback(null);
+	}], function (error, result){ console.log("end");});
 });
 
 app.post('/view', (request, response)=>{
