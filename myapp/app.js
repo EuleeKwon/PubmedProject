@@ -11,19 +11,21 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var dte = require('date-utils');
 var ncbi = require('node-ncbi');
+var async = require('async')
 
 const app = express();
 //app.use(cookieParser)
 const pubmed = ncbi.pubmed;
 
 var keyword;
-var pid;
+var pid = 0;
 var orders = 0;
 var parents = 0;
+var view_mode="none";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
-app.use(cookieParser());
+//app.use(cookieParser());
 
 //DB아이디 비번 임의로 작성
 
@@ -32,10 +34,9 @@ app.use(cookieParser());
 var client = mysql.createConnection({
   host: "projectdb.cjdbbm9zlk2l.ap-northeast-2.rds.amazonaws.com",
   user: "user",
-  password: "gachon6543210",
+  password: "",
   database: "projectdb"
 });
-
 //디비 연결
 client.connect();
 */
@@ -48,6 +49,8 @@ var connection = mysql.createConnection({
   password: "1234",
   database: "final_project"
 });
+
+connection.connect();
 */
 
 // view engine setup
@@ -85,7 +88,7 @@ app.get('/search', function(request, response){
 				response.send(ejs.render(data, {
 					paper:results,
 					pubmed:pubmed,
-					paper_id:pid
+					view_mode:view_mode
 				}));
 			});
 		}
@@ -102,8 +105,67 @@ app.post('/search', (request, response)=>{
 	keyword = body.searchBar;
 //	var example = example;
 
-//pid 받아오기
-		if(body.selected_pid_0){
+//키워드 검색
+if(body.search){
+		parents = 0;
+		orders = orders + 1;
+  	console.log("search keyword is ", keyword);
+		response.redirect('/search');
+	}
+
+//키워드 저장
+if(body.save){
+//		parents = parents + 1;
+			console.log("just before query" + keyword, pid, orders, parents)
+		 	client.query('INSERT INTO hisDB (searched,title,ordering,parent)VALUES(?,?,?,?)',[keyword,null,orders,parents],()=>{
+			console.log("sell Insertion into DB was completed !");
+			});
+			response.redirect('/search');
+			console.log("save keyword button clicked");
+	}
+
+});
+
+app.get('/view', (request, response)=>{
+	console.log("bark!\n");
+	var abstr;
+	async.waterfall([
+	function(callback){
+		pubmed.abstract(pid).then((results)=>{
+			abstr = results;
+			console.log("\n\nresults :" + results);
+			console.log("\n\nabstr : " + abstr);
+		});
+		callback(null)
+	},
+	function(callback){
+		fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
+			if(!error){
+				console.log("bark, bark!\n");
+
+				view_mode="block";
+				pubmed.summary(pid).then((results)=>{
+					console.log(results);
+					response.send(ejs.render(data, {
+						abstr:abstr,
+						pubDate: results.pubDate,
+						title: results.title,
+						authors: results.authors,
+						pubmed:pubmed
+					}));
+				});
+			}
+			else console.log(error);
+		});
+		callback(null);
+	}], function (error, result){ console.log("end");});
+});
+
+app.post('/view', (request, response)=>{
+	let body = request.body;
+
+	//pid 받아오기
+	if(body.selected_pid_0){
 		pid = body.selected_pid_0;
 	} if(body.selected_pid_1){
 		pid = body.selected_pid_1;
@@ -120,40 +182,25 @@ app.post('/search', (request, response)=>{
 	} if(body.selected_pid_7){
 		pid = body.selected_pid_7;
 	}
+	console.log("\n\npid is " + pid);
 
-//논문 정보 전체 보기
-if(body.view){
-	console.log("button view clicked");
-}
-
-//키워드 검색
-if(body.search){
-		orders = orders + 1;
-  	console.log("search keyword is ", keyword);
-		response.redirect('/search');
-	}
-
-//키워드 저장
-if(body.save){
-			parents = parents + 1;
-			console.log("just before query" + keyword, pid, orders, parents)
-		 	client.query('INSERT INTO hisDB (searched,title,ordering,parent)VALUES(?,?,?,?)',[keyword,null,orders,parents],()=>{
-			console.log("sell Insertion into DB was completed !");
-			});
-			response.redirect('/search');
-			console.log("save keyword button clicked");
+	//논문 정보 전체 보기
+	if(body.view){
+		console.log("button view clicked");
+		response.redirect('/view');
 	}
 
 //논문 pid 저장
 	if(body.title_save){
+		parents = parents + 1;
 		console.log("just before query" + keyword, pid, orders, parents)
 		client.query('INSERT INTO hisDB (searched,title,ordering,parent)VALUES(?,?,?,?)',[null,pid,orders,parents],()=>{
 		console.log("sell Insertion into DB was completed !");
 	});
 		console.log("title save button clicked");
+		response.redirect('/search');
 	}
 });
-
 
 
 app.listen(app.get('port'),function(){

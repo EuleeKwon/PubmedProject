@@ -68,7 +68,6 @@ body {
 .portfolio-item {
   margin-bottom: 30px;
 }
-
            /* 논문상세페이지 css */
           #overlay {
     position: fixed;
@@ -85,12 +84,10 @@ body {
     margin-top: 100px;
     margin-left: 30px;
 }
-
           .scroll{
               max-height: 8800px;
               overflow-y: auto;
           } /* 논문상세페이지 카드 스크롤 css */
-
           .card-header {
               background-color: white;
           }
@@ -98,10 +95,127 @@ body {
               background-color: white;
           }
 
+          /* 마인드맵 css */
+        .scroll2{
+              max-height: 8800px;
+              overflow-x: auto;
+            overflow-y: auto;
+          } /* 마인드맵 카드 스크롤 css */
+          .mindmap {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	white-space: nowrap;
+	}
+.mindmap:before {
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	height: 100%;
+	width: 0;
+	}
+.node {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	height: 42px;
+	border: 1px solid #ccc;
+	padding: 0 4px;
+	margin: 4px 0;
+	background: #fff;
+	border-radius: 5px;
+	text-align: left;
+	cursor: pointer;
+	transition: all .2s;
+	direction: ltr;
+	}
+.node:hover {
+	box-shadow: 0 0 3px 0 #3498DB;
+	}
+.node:active {
+	box-shadow: 0 0 1px 0 #3498DB;
+	}
+.node_active,
+.node_active:hover {
+	box-shadow: 0 0 2px 1px #3498DB;
+	}
+.node_root {
+	border: 0;
+	background: #3498DB;
+	color: #fff;
+	font: 30px/40px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	padding: 0 10px;
+	height: 40px;
+	}
+.children {
+	position: relative;
+	list-style: none;
+	margin: 0;
+	text-align: left;
+	padding: 0 0 0 6px;
+	display: inline-block;
+	vertical-align: middle;
+	}
+.children:before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: -4px;
+	width: 10px;
+	border-top: 1px solid #ccc;
+	}
+	.children__item {
+		position: relative;
+		padding: 0 0 0 10px;
+		border-left: 1px solid #ccc;
+		}
+	.children__item:first-child,
+	.children__item:last-child {
+		border-left: 1px solid transparent;
+		}
+	.children__item:before {
+		content: '';
+		width: 10px;
+		border-top: 1px solid #ccc;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		}
+	.children__item:first-child:before {
+		left: -1px;
+		bottom: 0;
+		border-radius: 4px 0 0 0;
+		border-left: 1px solid #ccc;
+		}
+	.children__item:last-child:before {
+		left: -1px;
+		top: 0;
+		bottom: 50%;
+		border-radius: 0 0 0 4px;
+		border: 0;
+		border-left: 1px solid #ccc;
+		border-bottom: 1px solid #ccc;
+		}
+	.children__item:first-child:last-child:before {
+		top: 50%;
+		bottom: auto;
+		border: 0;
+		border-radius: 0;
+		border-top: 1px solid #ccc;
+		}
 
+        .node__text{
+            font: 20px/40px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
       </style>
-
-
+	<script>
+	$(funcion(){
+		$("#abstractContent").load("abstract.ejs");
+	});
+	</script>
 </head>
 
 <body>
@@ -160,7 +274,7 @@ body {
          <div class="row">
          <div class="col">
          <div class="row">
- 			<% var pid = ""; var pid_list = []; var selected_key;%>
+ 			<% var pid = ""; var pid_list = [];%>
  			<% Object.keys(paper.papers).forEach(function(key){ %>
              <div class="col-sm-6 portfolio-item">
  			<%pid = paper.papers[key].pmid%>
@@ -172,7 +286,7 @@ body {
                              <b><%-paper.papers[key].title%></b>
                          </h6>
                          <p class="card-text"><%-paper.papers[key].authors%></p>
- 						<form method="post">
+ 						<form action="/view" method="post">
  						<input type="hidden" name="selected_pid_<%-key%>" value="<%=pid_list[key]%>"/>
  						<input type="submit" name="view" class="btn btn-default" value="view"/>
             <input type="submit" name="title_save" class="btn btn-default" value="save"/>
@@ -180,71 +294,51 @@ body {
                      </div>
                  </div>
              </div>
- 		<%});%>
+		<%});%>
          </div>
              </div>
 
-             <!-- Mindmap -->
-             <div class="col" >
-                 <div style="position: fixed">
 
-
-     <div class="container-fluid">
+<!-- 마인드맵 그리기 -- >
+				<!-- Mindmap -->
+				<div class="col" >
+					<div style="position: fixed">
+						<div class="container-fluid">
      <div class="card text-center">
-   <div class="card-body" style="height: 55rem; width: 56rem;">
-       <h5 class="card-title">Mindmap name</h5>
-     This is some text within a card body.
+   <div class="card-body scroll2" style="height: 55rem; width: 56rem;">
+     <iframe src="localhost:3000/midmap.ejs" width="896" height="700"> 에러에러에ㅓㄹ에러에러에러</iframe>
+                                </div>
+                            </div>
+                        </div>
+						</div>
+					</div>
+	<!-- /.row -->
 
-   </div>
- </div>
-         </div>
-                     </div>
-     </div>
-             </div>
-         <!-- /.row -->
+    <div>
+    <!-- /.container -->
 
-
-
-     </div>
-     <!-- /.container -->
-
-     </div>
+    </div>
 
 
     <!-- 논문 상세 페이지 -->
-    <div id="overlay">
-    <div class="card card-body scroll" style="height: 880px">
-        <div class="card-header">
-        <h6><br>Year. etc</h6>
-        <h3><b>Mindmap name</b></h3>
-        <h6>author</h6>
-            </div>
-        <h4><br>Abstract</h4>
-        <h5><br>Deep endometriosis may simultaneously infiltrate the vagina and the rectosigmoid, which associated resection may increase the risk of postoperative complications. Among these complications, rectovaginal fistula is one of the worst. To reduce the risk of rectovaginal fistula and related complications, surgeons may employ diverting stoma. The literature is rich in data concerning the usefulness of stoma in patients managed for low rectal cancer. However, extrapolation of these data to patients managed for rectal endometriosis is disputable. For this reason, there are no guidelines on the role of stoma in preventing rectovaginal fistula in patients managed for colorectal endometriosis. The objective of our study was to assess the risk of complications related to the use of stoma in patients managed for colorectal endometriosis.
-<br><br>STUDY DESIGN:
+    <div id="abstractContent"></div>
 
-A retrospective comparative study has been performed using data prospectively recorded in the CIRENDO database. 163 consecutive women with colorectal endometriosis who had temporary stoma have been enrolled at the University Hospital of Rouen, from June 2009 to December 2016. The main outcome was stoma-related complications rate using Clavien-Dindo classification. No women were lost to follow-up.
-        <br><br>STUDY DESIGN:
 
-A retrospective comparative study has been performed using data prospectively recorded in the CIRENDO database. 163 consecutive women with colorectal endometriosis who had temporary stoma have been enrolled at the University Hospital of Rouen, from June 2009 to December 2016. The main outcome was stoma-related complications rate using Clavien-Dindo classification. No women were lost to follow-up.
-        </h5>
-     <br>
-        <div class="card-footer">
-            <br>
-        <buttton class="btn btn-info" onclick="off()">Back</buttton>
-            <buttton class="btn btn-info" style="float: right; margin-left:10px;">Save</buttton>
-            <buttton href="#" class="btn btn-info" style="float: right">Full text links</buttton>
-        </div>
-        </div>
-    </div>
+ <!-- 마인드맵 관련 자바스크립트 -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <script>
+        $(function() {
+            $('.mindmap').mindmap();
+        });
+    </script>
 
 
     <!-- 논문 상세페이지 자바스크립트 -->
 <script>
 function on() {
-    document.getElementById("overlay").style.display = "block";
+    document.getElementById("abstractContent").style.display = "<%-view_mode%>";
 }
-
 function off() {
     document.getElementById("overlay").style.display = "none";
 }
@@ -264,7 +358,6 @@ $(document).ready(function(){
       }
     });
   });
-
   $("#savebtn").click(function(){
     $.ajax({
       type:"POST",
@@ -273,8 +366,6 @@ $(document).ready(function(){
   });
 });
 */
-
-
 </script>
 
 
