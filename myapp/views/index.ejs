@@ -106,7 +106,7 @@ body {
 	-moz-user-select: none;
 	user-select: none;
 	width: 100%;
-	height: 100%;
+	height: 0%;
 	text-align: center;
 	white-space: nowrap;
 	}
@@ -299,20 +299,64 @@ body {
              </div>
 
 
-<!-- 마인드맵 그리기 -- >
-				<!-- Mindmap -->
-				<div class="col" >
-					<div style="position: fixed">
-						<div class="container-fluid">
+             <!-- Mindmap -->
+             <div class="col" >
+                 <div style="position: fixed">
+
+
+     <div class="container-fluid">
      <div class="card text-center">
    <div class="card-body scroll2" style="height: 55rem; width: 56rem;">
-     <iframe src="localhost:3000/midmap.ejs" width="896" height="700"> 에러에러에ㅓㄹ에러에러에러</iframe>
-                                </div>
+       <h5 class="card-title">Mindmap name</h5>
+      <div class="mindmap">
+        <% var rid = ""; var rid_list = [];%>
+        <% for (var key = 0; key < database.length; key++){ %>
+          <div calss = "col-sm-6 portfolio-item">
+            <%rid = database[key].id%>
+            <%rid_list.push(rid) %>
+
+            <div class="node node_root">
+                <div class="root__node__text">node</div>
+            </div>
+            <ol class="children children_rightbranch">
+                <li class="children__item">
+                    <div class="node">
+                        <div class="node__text">node</div>
+                    </div>
+                    <ol class="children">
+                        <li class="children__item">
+                            <div class="node">
+                                <div class="node__text">node</div>
+
                             </div>
-                        </div>
-						</div>
-					</div>
-	<!-- /.row -->
+
+                        </li>
+                        <li class="children__item">
+                            <div class="node">
+                                <div class="node__text">node</div>
+
+                            </div>
+                        </li>
+                        <li class="children__item">
+                            <div class="node">
+                                <div class="node__text">node</div>
+
+                            </div>
+                        </li>
+
+                    </ol>
+                </li>
+              </ol>
+          </div>
+      <%}%>
+
+   </div>
+ </div>
+         </div>
+                     </div>
+     </div>
+             </div>
+         <!-- /.row -->
 
     <div>
     <!-- /.container -->
@@ -370,7 +414,6 @@ $(document).ready(function(){
 
 
 
-
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -386,7 +429,6 @@ $(document).ready(function(){
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
 
 </body>
 

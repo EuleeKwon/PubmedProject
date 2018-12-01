@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({extended : false}));
 
 //DB아이디 비번 임의로 작성
 
-/*
+
 //db연결
 var client = mysql.createConnection({
   host: "projectdb.cjdbbm9zlk2l.ap-northeast-2.rds.amazonaws.com",
@@ -39,7 +39,7 @@ var client = mysql.createConnection({
 });
 //디비 연결
 client.connect();
-*/
+
 
 /*
 // local database
@@ -84,16 +84,19 @@ app.post('/',(request,response)=>{
 app.get('/search', function(request, response){
 	fs.readFile('./views/index.ejs', 'utf8', (error, data)=>{
 		if(!error){
+			client.query('SELECT * FROM hisDB',[], function(err, dbdata){
 			pubmed.search(keyword, 0, 8).then((results)=>{
 				response.send(ejs.render(data, {
 					paper:results,
 					pubmed:pubmed,
-					view_mode:view_mode
+					view_mode:view_mode,
+					database:dbdata
 				}));
 			});
-		}
-		else console.log(error);
-	});
+			console.log(dbdata);
+		});
+	}else console.log(error);
+});
 });
 
 
