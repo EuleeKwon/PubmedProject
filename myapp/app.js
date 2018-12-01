@@ -11,7 +11,6 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var dte = require('date-utils');
 var ncbi = require('node-ncbi');
-var async = require('async')
 
 const app = express();
 //app.use(cookieParser)
@@ -41,7 +40,6 @@ var client = mysql.createConnection({
 client.connect();
 */
 
-/*
 // local database
 var connection = mysql.createConnection({
   host: "localhost",
@@ -51,7 +49,6 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
-*/
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -86,6 +83,7 @@ app.get('/search', function(request, response){
 		if(!error){
 			pubmed.search(keyword, 0, 8).then((results)=>{
 				response.send(ejs.render(data, {
+					keyword:keyword,
 					paper:results,
 					pubmed:pubmed,
 					view_mode:view_mode
@@ -128,37 +126,23 @@ if(body.save){
 
 app.get('/view', (request, response)=>{
 	console.log("bark!\n");
-	var abstr;
-	async.waterfall([
-	function(callback){
-		pubmed.abstract(pid).then((results)=>{
-			abstr = results;
-			console.log("\n\nresults :" + results);
-			console.log("\n\nabstr : " + abstr);
-		});
-		callback(null)
-	},
-	function(callback){
 		fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
 			if(!error){
 				console.log("bark, bark!\n");
-
 				view_mode="block";
 				pubmed.summary(pid).then((results)=>{
 					console.log(results);
 					response.send(ejs.render(data, {
-						abstr:abstr,
 						pubDate: results.pubDate,
 						title: results.title,
 						authors: results.authors,
-						pubmed:pubmed
+						pubmed:pubmed,
+						pid:pid
 					}));
 				});
 			}
 			else console.log(error);
 		});
-		callback(null);
-	}], function (error, result){ console.log("end");});
 });
 
 app.post('/view', (request, response)=>{
@@ -190,7 +174,7 @@ app.post('/view', (request, response)=>{
 		response.redirect('/view');
 	}
 
-//논문 pid 저장
+	//논문 pid 저장
 	if(body.title_save){
 		parents = parents + 1;
 		console.log("just before query" + keyword, pid, orders, parents)
@@ -199,6 +183,15 @@ app.post('/view', (request, response)=>{
 	});
 		console.log("title save button clicked");
 		response.redirect('/search');
+	}
+	
+	if(body.back){
+		response.redirect('/search');
+	}
+	
+	if(body.full_txt){
+		console.log("\nGet full text is not implemented\n");
+		response.redirect('/view');
 	}
 });
 
