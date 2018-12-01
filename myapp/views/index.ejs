@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-      <title>CDSS SearchPage</title>
+    <title>CDSS</title>
 
-      <!-- font Awesome 5 CSS -->
-         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <!-- font Awesome 5 CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-      <style>
-          .navbar{
+    <style>
+        .navbar{
   background-color: #fcfcfc !important;/* 내비게이션 배경 색상 */
 }
 .navbar .navbar-brand{/* 내비게이션 제목 'CDSS' 글자 및 하이라이트 색상 */
@@ -227,8 +227,8 @@ body {
                 <form class="navbar-form" method="post">
                     <div class="input-group">
                         <input type="text" id="searchtext" class="form-control placeicon" name="searchBar" placeholder="검색" style="width: 690px" value="<%-keyword%>">
-                        <input type="submit" name="search" value="search" class="btn btn-primary" >
-                        <input type="submit" name="save" value="save" class="btn btn-primary" >
+                        <input type="submit" name="search" value="search" class="btn btn-primary">
+                        <input type="submit" name="save" value="save" class="btn btn-primary">
                     </div>
 
                 </form>
@@ -255,90 +255,95 @@ body {
                     </div>
 
                 </ul>
-            </div>
         </div>
+
     </nav>
 
 
 
     <!-- Page Content -->
-     <div class="container-fluid">
+    <div class="container-fluid">
 
-         <!-- Page Heading -->
-         <div class="container-fluid">
-         <div class="row">
-         <div class="col">
-         <div class="row">
- 			<% var pid = ""; var pid_list = [];%>
- 			<% Object.keys(paper.papers).forEach(function(key){ %>
-             <div class="col-sm-6 portfolio-item">
- 			<%pid = paper.papers[key].pmid%>
- 			<%pid_list.push(pid);
+        <!-- Page Heading -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <% var pid = ""; var pid_list = [];%>
+                        <% Object.keys(paper.papers).forEach(function(key){ %>
+                        <div class="col-sm-6 portfolio-item">
+                            <%pid = paper.papers[key].pmid%>
+                            <%pid_list.push(pid);
  			console.log(pid);%>
-                 <div type="button" class="card h-100" onclick="on()">
- 					<div class="card-body">
-                         <h6 class="card-title">
-                             <b><%-paper.papers[key].title%></b>
-                         </h6>
-                         <p class="card-text"><%-paper.papers[key].authors%></p>
- 						<form action="/view" method="post">
- 						<input type="hidden" name="selected_pid_<%-key%>" value="<%=pid_list[key]%>"/>
- 						<input type="submit" name="view" class="btn btn-default" value="view"/>
-            <input type="submit" name="title_save" class="btn btn-default" value="save"/>
- 						</form>
-                     </div>
-                 </div>
-             </div>
-		<%});%>
-         </div>
-             </div>
-
-
-<!-- 마인드맵 그리기 -- >
-				<!-- Mindmap -->
-				<div class="col" >
-					<div style="position: fixed">
-						<div class="container-fluid">
-     <div class="card text-center">
-   <div class="card-body scroll2" style="height: 55rem; width: 56rem;">
-     <iframe src="localhost:3000/midmap.ejs" width="896" height="700"> 에러에러에ㅓㄹ에러에러에러</iframe>
+                            <div type="button" class="card h-100" onclick="on()">
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        <b>
+                                            <%-paper.papers[key].title%></b>
+                                    </h6>
+                                    <p class="card-text">
+                                        <%-paper.papers[key].authors%>
+                                    </p>
+                                    <form action="/view" method="post">
+                                        <input type="hidden" name="selected_pid_<%-key%>" value="<%=pid_list[key]%>" />
+                                        <input type="submit" name="view" class="btn btn-default" value="view" />
+                                        <input type="submit" name="title_save" class="btn btn-default" value="save" />
+                                    </form>
                                 </div>
                             </div>
                         </div>
-						</div>
-					</div>
-	<!-- /.row -->
-
-    <div>
-    <!-- /.container -->
-
-    </div>
-
- <!-- 마인드맵 관련 자바스크립트 -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-    <script>
-        $(function() {
-            $('.mindmap').mindmap();
-        });
-    </script>
+                        <%});%>
+                    </div>
+                </div>
 
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <!-- 마인드맵 그리기 -- >
+				<!-- Mindmap -->
+                <div class="col">
+                    <div style="position: fixed">
+                        <div class="container-fluid">
+                            <div class="card text-center">
+                                <div class="card-body scroll2" style="height: 40rem; width: 44rem;">
+                                    
+                                    <div class="card-title"><h5><b>Mindmap Name</b></h5></div>
 
-    <!-- Custom javascript-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
 
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+                <!-- /.container -->
 
-     <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            </div>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+            <!-- 마인드맵 관련 자바스크립트 -->
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+            <script>
+                $(function() {
+                    $('.mindmap').mindmap();
+                });
+
+            </script>
+
+
+            <!-- Bootstrap core JavaScript -->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+            <!-- Custom javascript-->
+
+            <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+            <!-- jquery -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+            <!-- Bootstrap core JavaScript -->
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 
 </body>
