@@ -277,9 +277,8 @@ body {
  			<% var pid = ""; var pid_list = [];%>
  			<% Object.keys(paper.papers).forEach(function(key){ %>
              <div class="col-sm-6 portfolio-item">
- 			<%pid = paper.papers[key].pmid%>
- 			<%pid_list.push(pid);
- 			console.log(pid);%>
+ 			<%pid = paper.papers[key].pmid;%>
+ 			<%pid_list.push(pid); console.log(pid);%>
                  <div type="button" class="card h-100" onclick="on()">
  					<div class="card-body">
                          <h6 class="card-title">
@@ -309,44 +308,28 @@ body {
    <div class="card-body scroll2" style="height: 55rem; width: 56rem;">
        <h5 class="card-title">Mindmap name</h5>
       <div class="mindmap">
-        <% var rid = ""; var rid_list = [];%>
-        <% for (var key = 0; key < database.length; key++){ %>
+        <% for (var key = 0; key < database.length; key++){%>
           <div calss = "col-sm-6 portfolio-item">
-            <%rid = database[key].id%>
-            <%rid_list.push(rid) %>
-
-            <div class="node node_root">
-                <div class="root__node__text">node</div>
-            </div>
             <ol class="children children_rightbranch">
+            <% if(database[key].parent == 0 ){%>
                 <li class="children__item">
-                    <div class="node">
-                        <div class="node__text">node</div>
+                    <div class="node node_root">
+                        <div class="node__text"><%-database[key].searched%></div>
                     </div>
+
+                  </li>
+                    <%} else if (database[key].ordering == database[key-1].ordering) {%>
                     <ol class="children">
-                        <li class="children__item">
-                            <div class="node">
-                                <div class="node__text">node</div>
-
-                            </div>
-
-                        </li>
-                        <li class="children__item">
-                            <div class="node">
-                                <div class="node__text">node</div>
-
-                            </div>
-                        </li>
-                        <li class="children__item">
-                            <div class="node">
-                                <div class="node__text">node</div>
-
-                            </div>
-                        </li>
-
+                      <li class="children__item">
+                          <div class="node">
+                              <div class="node__text"><%-database[key].title%></div>
+                          </div>
+                      </li>
                     </ol>
-                </li>
-              </ol>
+                <%} else {%>
+                  <h2>ERROR</h2>
+              <%}%>
+            </ol>
           </div>
       <%}%>
 
