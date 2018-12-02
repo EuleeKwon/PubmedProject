@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({extended : false}));
 var client = mysql.createConnection({
   host: "projectdb.cjdbbm9zlk2l.ap-northeast-2.rds.amazonaws.com",
   user: "user",
-  password: "final_kyp1996",
+  password: "",
   database: "projectdb"
 });
 //디비 연결
