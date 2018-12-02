@@ -18,6 +18,7 @@ const app = express();
 const pubmed = ncbi.pubmed;
 
 var keyword;
+var titlename = "";
 var pid = 0;
 var orders = 0;
 var parents = 0;
@@ -120,7 +121,7 @@ if(body.search){
 if(body.save){
 //		parents = parents + 1;
 			console.log("just before query" + keyword, pid, orders, parents)
-		 	client.query('INSERT INTO hisDB (searched,title,ordering,parent)VALUES(?,?,?,?)',[keyword,null,orders,parents],()=>{
+		 	client.query('INSERT INTO hisDB (searched,pubmedid,pname,ordering,parent)VALUES(?,?,?,?,?)',[keyword,null,null,orders,parents],()=>{
 			console.log("sell Insertion into DB was completed !");
 			});
 			response.redirect('/search');
@@ -196,14 +197,15 @@ app.post('/view', (request, response)=>{
 //논문 pid 저장
 	if(body.title_save){
 		parents = parents + 1;
-		console.log("just before query" + keyword, pid, orders, parents)
-		client.query('INSERT INTO hisDB (searched,title,ordering,parent)VALUES(?,?,?,?)',[null,pid,orders,parents],()=>{
-		console.log("sell Insertion into DB was completed !");
-	});
-		console.log("title save button clicked");
-		response.redirect('/search');
-	}
-});
+
+			pubmed.summary(pid).then((results) => {
+			client.query('INSERT INTO hisDB (searched,pubmedid,pname,ordering,parent)VALUES(?,?,?,?,?)',[null,pid, results.title,orders,parents],()=>{
+			console.log("sell Insertion into DB was completed !");
+		});
+			console.log("title save button clicked");
+			response.redirect('/search');
+		});
+}});
 
 
 app.listen(app.get('port'),function(){
