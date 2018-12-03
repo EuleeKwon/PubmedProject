@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-      <title>CDSS SearchPage</title>
+      <title>CDSS</title>
 
       <!-- font Awesome 5 CSS -->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -106,7 +106,7 @@ body {
 	-moz-user-select: none;
 	user-select: none;
 	width: 100%;
-	height: 100%;
+	height: 0%;
 	text-align: center;
 	white-space: nowrap;
 	}
@@ -277,9 +277,8 @@ body {
  			<% var pid = ""; var pid_list = [];%>
  			<% Object.keys(paper.papers).forEach(function(key){ %>
              <div class="col-sm-6 portfolio-item">
- 			<%pid = paper.papers[key].pmid%>
- 			<%pid_list.push(pid);
- 			console.log(pid);%>
+ 			<%pid = paper.papers[key].pmid;%>
+ 			<%pid_list.push(pid); console.log(pid);%>
                  <div type="button" class="card h-100" onclick="on()">
  					<div class="card-body">
                          <h6 class="card-title">
@@ -299,20 +298,60 @@ body {
              </div>
 
 
-<!-- 마인드맵 그리기 -- >
-				<!-- Mindmap -->
-				<div class="col" >
-					<div style="position: fixed">
-						<div class="container-fluid">
-     <div class="card text-center">
-   <div class="card-body scroll2" style="height: 55rem; width: 56rem;">
-     <iframe src="localhost:3000/midmap.ejs" width="896" height="700"> 에러에러에ㅓㄹ에러에러에러</iframe>
-                                </div>
+             <!-- Mindmap -->
+             <div class="col" >
+                 <div style="position: fixed">
+
+
+     <div class="container-fluid">
+       <div class="card text-center">
+       <div class="card-body scroll2" style="height: 42rem; width: 44rem;">
+       <h5 class="card-title">Mindmap name</h5>
+      <div class="mindmap">
+        <% for (var key = 0; key < database.length; key++){%>
+          <div >
+            
+            <% if(database[key].parent == 0 ){%>
+              
+                    <div class="node node_root">
+                        <div class="node__text"><%-database[key].searched%></div><!-- 엄마 -->
+                    </div>
+
+                  
+                    <%} else if (database[key].ordering == database[key-1].ordering) {%>
+                    <ol class="children">
+                      <li class="children__item">
+                          <div class="node">
+                              <div class="node__text"><%-database[key].pname%></div><!-- 자식 -->
+                          </div>
+                      </li>
+                    </ol>
+                <%} else if (database[key].ordering != database[key-1].ordering) {%><!--키워드 저장 안 하고 논문 저장하는 경우 -->
+                  <li class="children__item">
+                      <div class="node node_root">
+                          <div class="node__text"><%-database[key].searched%></div>
+                      </div>
+                      <ol class="children">
+                        <li class="children__item">
+                            <div class="node">
+                                <div class="node__text"><%-database[key].pname%></div>
                             </div>
-                        </div>
-						</div>
-					</div>
-	<!-- /.row -->
+                        </li>
+                      </ol>
+                <%} else {%>
+                  <h2>ERROR</h2>
+              <%}%>
+            
+          </div>
+      <%}%>
+
+   </div>
+ </div>
+         </div>
+                     </div>
+     </div>
+             </div>
+         <!-- /.row -->
 
     <div>
     <!-- /.container -->
@@ -370,7 +409,6 @@ $(document).ready(function(){
 
 
 
-
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -386,7 +424,6 @@ $(document).ready(function(){
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
 
 </body>
 
