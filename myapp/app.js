@@ -23,7 +23,6 @@ var titlename = "";
 var pid = 0;
 var orders = 0;
 var parents = 0;
-var view_mode="none";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
@@ -36,7 +35,7 @@ app.use(bodyParser.urlencoded({extended : false}));
 var client = mysql.createConnection({
   host: "projectdb.cjdbbm9zlk2l.ap-northeast-2.rds.amazonaws.com",
   user: "user",
-  password: "",
+  password: "final_kyp1996",
   database: "projectdb"
 });
 //디비 연결
@@ -91,8 +90,8 @@ app.get('/search', function(request, response){
 				response.send(ejs.render(data, {
 					paper:results,
 					pubmed:pubmed,
-					view_mode:view_mode,
-					database:dbdata
+					database:dbdata,
+          keyword:keyword
 				}));
 			});
 			console.log(dbdata);
@@ -132,47 +131,6 @@ if(body.save){
 	}
 
 });
-/*
-app.get('/view', (request, response)=>{
-	console.log("bark!\n");
-	var abstr = "";
-	async.waterfall([
-	function(callback){
-    eutils.efetch({db:'pubmed', id:[pid], retmode:'xml'}).then(function(d) {
-    Object.keys(d).forEach(function(key){
-      console.log("\n\nstarthahaaahaha\n\n")
-      Object.keys(d[key].PubmedArticle.MedlineCitation.Article.Abstract).forEach(function(values){
-        console.log(d[key].PubmedArticle.MedlineCitation.Article.Abstract[values]);
-        abstr = abstr + d[key].PubmedArticle.MedlineCitation.Article.Abstract[values];
-        console.log("\n\n");
-      });
-    });
-  });
-  callback(null)
-	},
-	function(callback){
-		fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
-			if(!error){
-				console.log("bark, bark!\n");
-
-				view_mode="block";
-				pubmed.summary(pid).then((results)=>{
-					console.log(results);
-					response.send(ejs.render(data, {
-						abstr:abstr,
-						pubDate: results.pubDate,
-						title: results.title,
-						authors: results.authors,
-						pubmed:pubmed
-					}));
-				});
-			}
-			else console.log(error);
-		});
-		callback(null);
-	}], function (error){ console.log("end");});
-});
-*/
 
 app.get('/view', (request, response)=>{
 	var abstr = "";
@@ -203,9 +161,10 @@ app.get('/view', (request, response)=>{
 		});
   });
 });
+
+
 app.post('/view', (request, response)=>{
 	let body = request.body;
-
 	//pid 받아오기
 	if(body.selected_pid_0){
 		pid = body.selected_pid_0;
@@ -243,7 +202,18 @@ app.post('/view', (request, response)=>{
 			console.log("title save button clicked");
 			response.redirect('/search');
 		});
-}});
+  }
+
+  if(body.back){
+    response.redirect('/search');
+  }
+
+  if(body.full_txt){
+    console.log("This is full text");
+    response.redirect('/view');
+  }
+
+});
 
 
 app.listen(app.get('port'),function(){

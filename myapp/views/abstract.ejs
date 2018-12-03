@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-      <title>CDSS SearchPage</title>
+      <title>CDSS</title>
 
       <!-- font Awesome 5 CSS -->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -44,12 +44,9 @@ body {
      margin-right: 80px;
      }
      </style>
-
-
 </head>
 
 <body>
-
         <div class="detail">
         <div class="card card-body scroll">
         <div class="card-header">
@@ -63,11 +60,12 @@ body {
 		</h5>
      <br>
         <div class="card-footer">
-            <br>
-        <buttton class="btn btn-info" onclick="off()">Back</buttton>
-            <buttton class="btn btn-info" style="float: right; margin-left:10px;">Save</buttton>
-            <buttton href="#" class="btn btn-info" style="float: right">Full text links</buttton>
-        </div>
+          <br>
+            <form method="post">
+            			<input type="submit" class="btn btn-info" name="back" value="< Back"/>
+                  <input type="submit" class="btn btn-info" style="float:right" name="full_txt" value="Full text links >"/>
+            </form>
+          </div>
      </div>
 
     <!-- Bootstrap core JavaScript -->

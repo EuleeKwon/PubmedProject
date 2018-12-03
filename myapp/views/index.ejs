@@ -211,13 +211,7 @@ body {
             font: 20px/40px 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
       </style>
-    <script>
-        $(funcion(){
-		$("#abstractContent").load("abstract.ejs");
-	});
-	</script>
 </head>
-
 <body>
 
     <!-- Navigation -->
@@ -231,7 +225,7 @@ body {
 
                 <form class="navbar-form" method="post">
                     <div class="input-group">
-                        <input type="text" id="searchtext" class="form-control placeicon" name="searchBar" placeholder="검색" style="width: 690px">
+                        <input type="text" id="searchtext" class="form-control placeicon" name="searchBar" value="<%-keyword%>" placeholder="검색" style="width: 690px">
                         <input type="submit" name="search" value="search" class="btn btn-primary">
                         <input type="submit" name="save" value="save" class="btn btn-primary">
                     </div>
@@ -310,11 +304,11 @@ body {
                             <div class="card text-center">
                                 <div class="card-body scroll2" style="height: 54rem; width: 55rem;">
                                     <h5 class="card-title">Mindmap name</h5>
-                                    
+
                                     <div class="mindmap">
                                         <% for (var key = 0; key < database.length; key++){%>
-                                        
-                                      
+
+
 
                                             <% if(database[key].parent == 0 ){%>
                                         <div></div>
@@ -324,11 +318,11 @@ body {
                                                     <%-database[key].searched%>
                                                 </div>
                                             </div>
-                                            
 
 
-                                            <%} 
-                                        
+
+                                            <%}
+
                                         else if (database[key].ordering == database[key-1].ordering) {%>
                                             <ol class="children children_rightbranch">
                                                 <li class="children__item">
@@ -339,12 +333,12 @@ body {
                                                     </div>
                                                 </li>
                                                 </ol>
-                                        
-                                            
-                                            <%} 
-                                        
+
+
+                                            <%}
+
                                         else if (database[key].ordering != database[key-1].ordering) {%>
-                                            
+
                                                 <div>
                                                     <div class="node node_root">
                                                         <div class="node__text">
@@ -361,12 +355,12 @@ body {
                                                         </li>
                                                     </ol>
                                         </div>
-                                        
+
                                                     <%} else {%>
                                                     <h2>ERROR</h2>
                                                     <%}%>
-                                            
-                                        
+
+
                                         <%}%>
 
                                     </div>
@@ -379,13 +373,7 @@ body {
 
                 <div>
                     <!-- /.container -->
-
                 </div>
-
-
-                <!-- 논문 상세 페이지 -->
-                <div id="abstractContent"></div>
-
 
                 <!-- 마인드맵 관련 자바스크립트 -->
                 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -396,44 +384,6 @@ body {
                     });
 
                 </script>
-
-
-                <!-- 논문 상세페이지 자바스크립트 -->
-                <script>
-                    function on() {
-                        document.getElementById("abstractContent").style.display = "<%-view_mode%>";
-                    }
-
-                    function off() {
-                        document.getElementById("overlay").style.display = "none";
-                    }
-
-                    /*
-                    $(document).ready(function(){
-                      $("#searchbtn").click(function(){
-                        var data = $("#searchtext").val();
-                        $.ajax({
-                          type:"POST",
-                          url: '/search',
-                          data : {data: data},
-                          success: function(){
-                          },
-                          error: function(){
-                            console.log("error");
-                          }
-                        });
-                      });
-                      $("#savebtn").click(function(){
-                        $.ajax({
-                          type:"POST",
-                          url: '/',
-                        });
-                      });
-                    });
-                    */
-
-                </script>
-
 
 
                 <!-- Bootstrap core JavaScript -->
