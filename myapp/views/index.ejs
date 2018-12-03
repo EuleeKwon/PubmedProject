@@ -326,6 +326,18 @@ body {
                           </div>
                       </li>
                     </ol>
+                <%} else if (database[key].ordering != database[key-1].ordering) {%>
+                  <li class="children__item">
+                      <div class="node node_root">
+                          <div class="node__text"><%-database[key].searched%></div>
+                      </div>
+                      <ol class="children">
+                        <li class="children__item">
+                            <div class="node">
+                                <div class="node__text"><%-database[key].pname%></div>
+                            </div>
+                        </li>
+                      </ol>
                 <%} else {%>
                   <h2>ERROR</h2>
               <%}%>

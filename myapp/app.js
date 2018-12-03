@@ -119,6 +119,8 @@ if(body.search){
 
 //키워드 저장
 if(body.save){
+      orders = orders + 1;
+      parents = 0;
 //		parents = parents + 1;
 			console.log("just before query" + keyword, pid, orders, parents)
 		 	client.query('INSERT INTO hisDB (searched,pubmedid,pname,ordering,parent)VALUES(?,?,?,?,?)',[keyword,null,null,orders,parents],()=>{
@@ -189,7 +191,7 @@ app.post('/view', (request, response)=>{
 	console.log("\n\npid is " + pid);
 
 	//논문 정보 전체 보기
-	if(body.view){
+  	if(body.view){
 		console.log("button view clicked");
 		response.redirect('/view');
 	}
@@ -199,7 +201,7 @@ app.post('/view', (request, response)=>{
 		parents = parents + 1;
 
 			pubmed.summary(pid).then((results) => {
-			client.query('INSERT INTO hisDB (searched,pubmedid,pname,ordering,parent)VALUES(?,?,?,?,?)',[null,pid, results.title,orders,parents],()=>{
+			client.query('INSERT INTO hisDB (searched,pubmedid,pname,ordering,parent)VALUES(?,?,?,?,?)',[keyword,pid, results.title,orders,parents],()=>{
 			console.log("sell Insertion into DB was completed !");
 		});
 			console.log("title save button clicked");
