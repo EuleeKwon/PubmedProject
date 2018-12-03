@@ -11,7 +11,8 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var dte = require('date-utils');
 var ncbi = require('node-ncbi');
-var async = require('async')
+var async = require('async');
+var eutils = require('ncbi-eutils');
 
 const app = express();
 //app.use(cookieParser)
@@ -51,7 +52,7 @@ var connection = mysql.createConnection({
   database: "final_project"
 });
 
-connection.connect();
+client.connect();
 */
 
 // view engine setup
@@ -131,18 +132,23 @@ if(body.save){
 	}
 
 });
-
+/*
 app.get('/view', (request, response)=>{
 	console.log("bark!\n");
-	var abstr;
+	var abstr = "";
 	async.waterfall([
 	function(callback){
-		pubmed.abstract(pid).then((results)=>{
-			abstr = results;
-			console.log("\n\nresults :" + results);
-			console.log("\n\nabstr : " + abstr);
-		});
-		callback(null)
+    eutils.efetch({db:'pubmed', id:[pid], retmode:'xml'}).then(function(d) {
+    Object.keys(d).forEach(function(key){
+      console.log("\n\nstarthahaaahaha\n\n")
+      Object.keys(d[key].PubmedArticle.MedlineCitation.Article.Abstract).forEach(function(values){
+        console.log(d[key].PubmedArticle.MedlineCitation.Article.Abstract[values]);
+        abstr = abstr + d[key].PubmedArticle.MedlineCitation.Article.Abstract[values];
+        console.log("\n\n");
+      });
+    });
+  });
+  callback(null)
 	},
 	function(callback){
 		fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
@@ -164,9 +170,39 @@ app.get('/view', (request, response)=>{
 			else console.log(error);
 		});
 		callback(null);
-	}], function (error, result){ console.log("end");});
+	}], function (error){ console.log("end");});
 });
+*/
 
+app.get('/view', (request, response)=>{
+	var abstr = "";
+    eutils.efetch({db:'pubmed', id:[pid], retmode:'xml'}).then(function(d) {
+    Object.keys(d).forEach(function(key){
+      console.log("\n\nstarthahaaahaha\n\n")
+      Object.keys(d[key].PubmedArticle.MedlineCitation.Article.Abstract).forEach(function(values){
+        console.log(d[key].PubmedArticle.MedlineCitation.Article.Abstract[values]);
+        abstr = abstr + d[key].PubmedArticle.MedlineCitation.Article.Abstract[values];
+        console.log("\n\n");
+      });
+    });
+		fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
+			if(!error){
+				console.log("bark, bark!\n");
+				pubmed.summary(pid).then((results)=>{
+					console.log(results);
+					response.send(ejs.render(data, {
+						abstr:abstr,
+						pubDate: results.pubDate,
+						title: results.title,
+						authors: results.authors,
+						pubmed:pubmed
+					}));
+				});
+			}
+			else console.log(error);
+		});
+  });
+});
 app.post('/view', (request, response)=>{
 	let body = request.body;
 
