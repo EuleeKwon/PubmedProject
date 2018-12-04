@@ -106,8 +106,8 @@ body {
 	-moz-user-select: none;
 	user-select: none;
 	width: 100%;
-	height: 10%;
-	text-align: center;
+	height: 5%;
+	text-align: left;
 	white-space: nowrap;
 	}
 .mindmap:before {
@@ -124,7 +124,7 @@ body {
 	height: 42px;
 	border: 1px solid #ccc;
 	padding: 0 4px;
-	margin: 4px 0;
+	margin: 5px 0;
 	background: #fff;
 	border-radius: 5px;
 	text-align: left;
@@ -163,18 +163,20 @@ body {
 	content: '';
 	position: absolute;
 	top: 50%;
-	left: -4px;
-	width: 10px;
+	left: 4px;
+	width: 0px;/* 여기 수정함 */
 	border-top: 1px solid #ccc;
 	}
 	.children__item {
+        list-style: none;/* 여기 추가함 */
 		position: relative;
 		padding: 0 0 0 10px;
 		border-left: 1px solid #ccc;
 		}
 	.children__item:first-child,
 	.children__item:last-child {
-		border-left: 1px solid transparent;
+		border-left: 70px solid transparent;/* 여기 수정함 */
+
 		}
 	.children__item:before {
 		content: '';
@@ -207,11 +209,15 @@ body {
 		border-top: 1px solid #ccc;
 		}
 
-        .node__text{
+        .node_root_text{
             font: 20px/40px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        .node__text{
+            font: 15px/40px 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
       </style>
 </head>
+
 <body>
 
     <!-- Navigation -->
@@ -301,26 +307,26 @@ body {
 
 
                         <div class="container-fluid">
-                            <div class="card text-center">
+                            <div class="card">
                                 <div class="card-body scroll2" style="height: 54rem; width: 55rem;">
                                     <h5 class="card-title">Mindmap name</h5>
 
                                     <div class="mindmap">
                                         <% for (var key = 0; key < database.length; key++){%>
                                             <% if(database[key].parent == 0 ){%>
-                                        <div></div>
+                                            <div></div>
 
                                             <div class="node node_root">
-                                                <div class="node__text">
+                                                <div class="node_root_text">
                                                     <%-database[key].searched%>
                                                 </div>
                                             </div>
                                             <%}
 
                                         else if (database[key].ordering == database[key-1].ordering) {%>
-                                            <ol class="children children_rightbranch">
+                                           <ol class="children">
                                                 <li class="children__item">
-                                                    <div class="card mindmap-context"><!-- 클래스 안에 싹 지우고 node로 바꿔도 됌 -->
+                                                    <div class="node">
                                                         <div class="node__text">
                                                             <%-database[key].pname%>
                                                         </div>
@@ -331,15 +337,16 @@ body {
 
                                         else if (database[key].ordering != database[key-1].ordering) {%>
 
-                                                <div>
-                                                    <div class="node node_root">
-                                                        <div class="node__text">
-                                                            <%-database[key].searched%>
-                                                        </div>
+                                            <div>
+                                                <div class="node node_root">
+                                                    <div class="node_root_text">
+                                                        <%-database[key].searched%>
                                                     </div>
+                                                </div>
+                                                <div>
                                                     <ol class="children">
                                                         <li class="children__item">
-                                                            <div class="card mindmap-context"><!-- 클래스 안에 싹 지우고 node로 바꿔도 됌 -->
+                                                            <div class="node">
                                                                 <div class="node__text">
                                                                     <%-database[key].pname%>
                                                                 </div>
@@ -353,44 +360,46 @@ body {
                                                     <%}%>
                                         <%}%>
 
+                                                <%}%>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.row -->
+                    <!-- /.row -->
 
-                <div>
-                    <!-- /.container -->
-                </div>
+                    <div>
+                        <!-- /.container -->
+                    </div>
 
-                <!-- 마인드맵 관련 자바스크립트 -->
-                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+                    <!-- 마인드맵 관련 자바스크립트 -->
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
-                <script>
-                    $(function() {
-                        $('.mindmap').mindmap();
-                    });
+                    <script>
+                        $(function() {
+                            $('.mindmap').mindmap();
+                        });
 
-                </script>
+                    </script>
 
 
-                <!-- Bootstrap core JavaScript -->
-                <script src="vendor/jquery/jquery.min.js"></script>
-                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                    <!-- Bootstrap core JavaScript -->
+                    <script src="vendor/jquery/jquery.min.js"></script>
+                    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-                <!-- Custom javascript-->
+                    <!-- Custom javascript-->
 
-                <script src="https://unpkg.com/vue/dist/vue.js"></script>
+                    <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
-                <!-- jquery -->
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                    <!-- jquery -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-                <!-- Bootstrap core JavaScript -->
-                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+                    <!-- Bootstrap core JavaScript -->
+                    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 </body>
 
