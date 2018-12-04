@@ -21,7 +21,6 @@
     "ncbi-eutils": "^0.3.0",
     "node-ncbi": "^0.5.1",
     "path": "^0.12.7",
-    "react-addons-update": "^15.6.2",
     "serve-favicon": "^2.5.0"
   },
   "main": "app.js",
