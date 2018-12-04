@@ -13,6 +13,7 @@ var dte = require('date-utils');
 var ncbi = require('node-ncbi');
 var async = require('async');
 var eutils = require('ncbi-eutils');
+const update = require('react-addons-update');
 
 const app = express();
 //app.use(cookieParser)
@@ -32,6 +33,7 @@ app.use(bodyParser.urlencoded({extended : false}));
 
 
 //db연결
+/*
 var client = mysql.createConnection({
   host: "projectdb.cjdbbm9zlk2l.ap-northeast-2.rds.amazonaws.com",
   user: "user",
@@ -40,11 +42,10 @@ var client = mysql.createConnection({
 });
 //디비 연결
 client.connect();
+*/
 
-
-/*
 // local database
-var connection = mysql.createConnection({
+var client = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "1234",
@@ -52,7 +53,7 @@ var connection = mysql.createConnection({
 });
 
 client.connect();
-*/
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -132,18 +133,50 @@ if(body.save){
 
 });
 
+const deepSearch = function(find, data) {
+  var found = [];
+  if (typeof data !== 'object') {
+    return found;
+  }
+  Object.keys(data).forEach(key => {
+    const value = data[key];
+    // console.log("\nkey value: "+String(key));
+    if (String(key).toLowerCase() === String(find).toLowerCase()) {
+      found.push(value);
+    }
+    found = found.concat(deepSearch(find, value))
+  });
+  return found;
+}
+
+const nodeValue = function(node) {
+  if (typeof node === 'string') {
+    return node;
+  } else if (Array.isArray(node)) {
+    return nodeValue(node[0]);
+  } else if (typeof node === 'object') {
+    return nodeValue(node._);
+  } else {
+    return null;
+  }
+}
+const nodeValues = function(nodes){
+  return update(nodes, {$apply: (node) => {
+    return nodeValue(node);
+  }});
+}
+
 app.get('/view', (request, response)=>{
 	var abstr = "";
     eutils.efetch({db:'pubmed', id:[pid], retmode:'xml'}).then(function(d) {
-    Object.keys(d).forEach(function(key){
-      console.log("\n\nstarthahaaahaha\n\n")
-      Object.keys(d[key].PubmedArticle.MedlineCitation.Article.Abstract).forEach(function(values){
-        console.log(d[key].PubmedArticle.MedlineCitation.Article.Abstract[values]);
-        abstr = abstr + d[key].PubmedArticle.MedlineCitation.Article.Abstract[values];
-        console.log("\n\n");
+      var nodes = deepSearch('abstracttext', d);
+      console.log(JSON.stringify(nodes));
+      Object.keys(nodes[0]).forEach(key=>{
+        console.log("\n\n"+ nodeValues(nodes[0][key]));
+        abstr = abstr.concat(nodeValues(nodes[0][key]));
       });
-    });
-		fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
+      console.log("\nabstr: "+ abstr);
+    fs.readFile('./views/abstract.ejs', 'utf8', (error, data)=>{
 			if(!error){
 				console.log("bark, bark!\n");
 				pubmed.summary(pid).then((results)=>{

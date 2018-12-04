@@ -307,9 +307,6 @@ body {
 
                                     <div class="mindmap">
                                         <% for (var key = 0; key < database.length; key++){%>
-
-
-
                                             <% if(database[key].parent == 0 ){%>
                                         <div></div>
 
@@ -318,9 +315,6 @@ body {
                                                     <%-database[key].searched%>
                                                 </div>
                                             </div>
-
-
-
                                             <%}
 
                                         else if (database[key].ordering == database[key-1].ordering) {%>
@@ -333,8 +327,6 @@ body {
                                                     </div>
                                                 </li>
                                                 </ol>
-
-
                                             <%}
 
                                         else if (database[key].ordering != database[key-1].ordering) {%>
@@ -359,8 +351,6 @@ body {
                                                     <%} else {%>
                                                     <h2>ERROR</h2>
                                                     <%}%>
-
-
                                         <%}%>
 
                                     </div>
